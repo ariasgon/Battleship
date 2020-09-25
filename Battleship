@@ -1,0 +1,460 @@
+import numpy as np
+import string
+import random as random
+from random import shuffle
+
+
+
+
+class Tableros():
+
+
+  def __init__(self,):
+    self.tableromaquina=np.zeros((10,11))
+    self.tablerojugadas=np.zeros((10,11))
+    self.tableroj1=np.zeros((10,11))
+    self.letravalor={'A':1,'B':2,'C':3,'D':4,'E':5,'F':6,'G':7,'H':8,'I':9,'J':10}
+    self.lt= np.array(['   A  B  C  D  E  F  G  H  I  J'], dtype=str)
+  
+  def tableropc(self):
+    print(self.lt)
+    nums=np.array(np.linspace(0,9,10))
+    nums=nums.reshape(10,1)
+    
+    for n in range(0,10):
+      self.tableromaquina[n][0]=n  
+    print(self.tableromaquina)
+
+  def tableropcjugadas(self):
+    print(self.lt)
+    nums=np.array(np.linspace(0,9,10))
+    nums=nums.reshape(10,1)
+    
+    for n in range(0,10):
+      self.tablerojugadas[n][0]=n
+    print(self.tablerojugadas)  
+
+
+  def tableropy1(self): 
+    print(self.lt)
+    nums=np.array(np.linspace(0,9,10))
+    nums=nums.reshape(10,1)
+    
+    for n in range(0,10):
+      self.tableroj1[n][0]=n 
+    print(self.tableroj1)
+
+    
+
+board=Tableros()  
+
+
+
+
+
+  
+def fragata(tablerojuego):
+
+
+  lat=random.randint(1,9)
+  longi=random.randint(1,10)
+
+  x1=tablerojuego[lat,longi]
+  
+
+  while x1==0:
+      if x1==0:
+         tablerojuego[lat,longi]=5
+         x1=5
+         
+         
+      else:
+        lat=random.randint(1,9)
+        longi=random.randint(1,10)
+
+  coordenadas=[[lat,longi]]
+
+  return coordenadas
+   
+
+
+def destructor(tablerojuego):
+  
+  
+
+
+# Coordenada1  
+  lat=random.randint(0,9)
+  longi=random.randint(1,10)
+  x1=tablerojuego[lat,longi]
+  
+# Coordenada2
+  lat2=0
+    
+  if lat==9:
+    lat2=lat-1
+  if lat==0:
+    lat2=lat+1
+  else:
+    lat2=lat-1
+
+ 
+ 
+  x2=tablerojuego[lat2,longi]
+
+
+  while x1==0  and x2==0:
+    if x1==0 and x2==0:
+        tablerojuego[lat,longi]=5
+        tablerojuego[lat2,longi]=5
+        x1=5
+        x2=5
+  
+    else:
+      lat=random.randint(0,9)
+      longi=random.randint(1,10)
+
+# Coordenada2
+  
+      if lat==9:
+        lat2=lat-1
+      if lat==0:
+        lat2=lat+1
+      else:
+        lat2=lat-1
+
+ 
+  coordenadas=[[lat,longi],[lat2,longi]]
+
+  return coordenadas
+   
+
+
+def acorazado(tablerojuego):
+  
+# Coordenada1  
+  lat=random.randint(0,9)
+  longi=random.randint(3,10)
+  x1=tablerojuego[lat,longi]
+  
+# Coordenada2
+  longi2=longi-1
+  x2=tablerojuego[lat,longi2]
+
+# Coordenada3
+  longi3=longi-2
+  x3=tablerojuego[lat,longi3]
+
+  while x1==5 or x2==5 or x3==5:
+  # Coordenada1  
+    lat=random.randint(0,9)
+    longi=random.randint(3,10)
+    x1=tablerojuego[lat,longi]
+    
+  # Coordenada2
+    longi2=longi-1
+    x2=tablerojuego[lat,longi2]
+
+  # Coordenada3
+    longi3=longi-2
+    x3=tablerojuego[lat,longi3]
+
+
+  while x1==0 or x2==0 or x3==0: 
+    if x1==0 and x2==0 and x3==0:
+      tablerojuego[lat,longi]=5
+      tablerojuego[lat,longi2]=5
+      tablerojuego[lat,longi3]=5
+      x1=5
+      x2=5
+      x3=5
+
+    
+    else:
+      lat=random.randint(0,9)
+      longi=random.randint(3,10)
+      x1=tablerojuego[lat,longi]
+          
+    # Coordenada2
+      longi2=longi-1
+      x2=tablerojuego[lat,longi2]
+
+    # Coordenada3
+      longi3=longi-2
+      x3=tablerojuego[lat,longi3]
+      
+ 
+  coordenadas=[[lat,longi],[lat,longi2],[lat,longi3]]
+
+  return coordenadas
+   
+
+def portaviones(tablerojuego):
+  
+# Coordenada1  
+  lat=random.randint(3,9)
+  longi=random.randint(0,10)
+  x1=tablerojuego[lat,longi]
+  
+# Coordenada2
+  lat2=lat-1
+  x2=tablerojuego[lat2,longi]
+
+# Coordenada3
+  lat3=lat-2
+  x3=tablerojuego[lat3,longi]
+
+# Coordenada4
+  lat4=lat-3
+  x4=tablerojuego[lat4,longi]
+
+
+  while x1==5 or x2==5 or x3==5 or x4==5:
+  # Coordenada1  
+    lat=random.randint(3,9)
+    longi=random.randint(0,10)
+    x1=tablerojuego[lat,longi]
+    
+  # Coordenada2
+    lat2=lat-1
+    x2=tablerojuego[lat2,longi]
+
+  # Coordenada3
+    lat3=lat-2
+    x3=tablerojuego[lat3,longi]
+
+  # Coordenada4
+    lat4=lat-3
+    x4=tablerojuego[lat4,longi]
+
+
+
+  while x1==0 or x2==0 or x3==0 or x4==0:
+    if x1==0 and x2==0 and x3==0:
+      tablerojuego[lat,longi]=5
+      tablerojuego[lat2,longi]=5
+      tablerojuego[lat3,longi]=5
+      tablerojuego[lat4,longi]=5
+      x1=5
+      x2=5
+      x3=5
+      x4=5
+
+    
+    else:
+  # Coordenada1  
+      lat=random.randint(3,9)
+      longi=random.randint(0,10)
+      x1=tablerojuego[lat,longi]
+      
+    # Coordenada2
+      lat2=lat-1
+      x2=tablerojuego[lat2,longi]
+
+    # Coordenada3
+      lat3=lat-2
+      x3=tablerojuego[lat3,longi]
+
+    # Coordenada4
+      lat4=lat-3
+      x4=tablerojuego[lat4,longi]
+      
+ 
+  coordenadas=[[lat,longi],[lat2,longi],[lat3,longi],[lat4,longi]]
+
+  return coordenadas
+   
+
+
+def astucianaval():
+  print('**** Bienvenido a Astucia Naval ****')
+  nombre= input('Ingrese su nombre:  ')
+
+  # Tablero Jugador 1
+
+  print(f'{nombre}. Este es su tablero')
+  print('')
+  print('')
+  print('')
+  Fragata1PY1=fragata(board.tableroj1)
+  Fragata2PY1=fragata(board.tableroj1) 
+  DES1PY1=destructor(board.tableroj1) 
+  DES2PY1=destructor(board.tableroj1) 
+  DES3PY1=destructor(board.tableroj1) 
+  Acorazado1PY1=acorazado(board.tableroj1) 
+  Acorazado2PY1=acorazado(board.tableroj1) 
+  Acorazado3PY1=acorazado(board.tableroj1)
+  PortavionesPY1=portaviones(board.tableroj1)
+  board.tableropy1()
+  BarcosPY1=Fragata1PY1+Fragata2PY1+DES1PY1+DES2PY1+DES3PY1+Acorazado1PY1+Acorazado2PY1+Acorazado3PY1+PortavionesPY1
+
+  print('')
+  print('')
+  print('')
+  print('')
+
+  #Tablero Máquina
+  print('Este es el tablero de su contrincante')
+  print('')
+  print('')
+  print('')
+  Fragata1PC=fragata(board.tableromaquina) 
+  Fragata2PC=fragata(board.tableromaquina) 
+  DES1PC=destructor(board.tableromaquina) 
+  DES2PC=destructor(board.tableromaquina) 
+  DES3PC=destructor(board.tableromaquina) 
+  Acorazado1PC=acorazado(board.tableromaquina) 
+  Acorazado2PC=acorazado(board.tableromaquina) 
+  Acorazado3PC=acorazado(board.tableromaquina)
+  PortavionesPC1=portaviones(board.tableromaquina)
+  board.tableropcjugadas()  
+
+  BarcosPC=Fragata1PC+Fragata2PC+DES1PC+DES2PC+DES3PC+Acorazado1PC+Acorazado1PC+Acorazado2PC+Acorazado3PC+PortavionesPC1
+  
+  CoordBarcosPC=0
+  CoordBarcosPY=0
+
+
+  posibilidades=[]
+  listadisparosPC=[]
+
+    
+  ranglatpc=range(0,10)
+  ranglongpc=range(1,11)
+  for n in ranglatpc:
+    for m in ranglongpc:
+      coordpc=[n,m]
+      posibilidades.append(coordpc)
+  print(len(posibilidades))
+
+
+
+  while CoordBarcosPC!=21 and CoordBarcosPY!=21:
+    print('')
+    print('')
+
+    
+    #Jugada Jugador 1
+
+    listadisparosj1=list()
+    longitud=input(f'Es el turno de atacar de {nombre}. Seleccione una letra de columan entre la A y la J para atacar:').upper()
+
+    while longitud not in board.letravalor.keys():
+        print('')
+        print('')
+        longitud=input(f'Es el turno de atacar de {nombre}. Recuerde que debe estar entre la A y la J: ').upper()
+
+    print('')
+    print('')
+    latitud=int(input(f'Es el turno de atacar de {nombre}. Seleccione una fila entre 0 y 9 para atacar:'))
+
+    while latitud not in range(0,9):
+        print('')
+        print('')
+        latitud=int(input(f'Es el turno de atacar de {nombre}. Recuerde que debe estar entre 0 y 9: '))
+
+    print('')
+    print('')
+    print(f'Su disparo es en la coordenada [{longitud},{latitud}]')
+    longitud=board.letravalor.get(longitud)
+
+    disparo=[latitud,longitud]
+
+    while disparo in listadisparosj1:
+      print('usted ya ha disparado a esa casilla. intente de nuevo.')
+      longitud=input(f'Es el turno de atacar de {nombre}. Seleccione una letra de columan entre la A y la J para atacar:').upper()
+      while longitud not in board.letravalor.keys() or longitud.isdigit()==True :
+        print('')
+        print('')
+        longitud=input(f'Es el turno de atacar de {nombre}. Recuerde que debe estar entre la A y la J: ').upper()
+
+      print('')
+      print('')
+      latitud=int(input(f'Es el turno de atacar de {nombre}. Seleccione una fila entre 0 y 9 para atacar:'))
+
+      while latitud not in range(0,9) or  latitud.isdigit()==False:
+          print('')
+          print('')
+          latitud=int(input(f'Es el turno de atacar de {nombre}. Recuerde que debe estar entre 0 y 9: '))
+
+
+    if disparo in BarcosPC:
+      print('')
+      print('')
+      print('EUREKA! Ha dado en un Barco')
+      print('')
+      print('')
+      CoordBarcosPY +=1
+      board.tablerojugadas[latitud,longitud]=5
+      print('Tablero Máquina')
+      board.tableropcjugadas()
+      print('')
+      print('')
+
+    else:
+      print('')
+      print('')
+      print('Has fallado!')
+      print('')
+      print('')
+      board.tablerojugadas[latitud,longitud]=1
+      print('Tablero Máquina')
+      board.tableropcjugadas()
+      listadisparosj1.append(disparo)
+      print('')
+      print('')
+
+
+
+   #Jugada PC
+
+    print('Es tu turno de ser atacado!')
+    print('')
+    print('')
+
+     
+    d=random.randint(0,100)
+    disparopc=posibilidades[d]
+
+    while disparopc in listadisparosPC:
+      d=random.randint(0,100)
+    
+
+    listadisparosPC.append(disparopc)
+
+    if disparopc in BarcosPY1:
+      print('Te han impactado!')
+      print('')
+      print('')
+      board.tableroj1[disparopc[0],disparopc[1]]=9
+      print(f'Tablero {nombre}')
+      board.tableropy1()
+      print(disparopc)
+      CoordBarcosPC +=1
+
+    else :
+      print('La maquina ha fallado!')
+      print('')
+      print('')
+      board.tableroj1[disparopc[0],disparopc[1]]=1
+      print(f'Tablero {nombre}')
+      board.tableropy1()
+
+
+  if CoordBarcosPC == 21:
+    print('Ha ganado la maquina. Fin del juego')
+  
+  if CoordBarcosPY == 21:
+    print(f'Ha ganado {nombre}. Fin del juego')
+    
+    
+
+astucianaval()
+
+
+
+
+
+
+
+    
